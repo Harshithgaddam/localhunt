@@ -1,0 +1,161 @@
+/* Main container with solid background */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw; /* 👈 ADDED THIS: Forces the container to be full-screen width */
+  background-color: #0862f3; /* 👈 CHANGED THIS: Replaced gradient with a solid dark blue */
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+  box-sizing: border-box; /* Added for better padding behavior */
+}
+
+/* Logo and tagline styling */
+.logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.logo-container .tagline {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* The white form card */
+.auth-form-container {
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Styling for input groups (icon + input field) */
+.input-group {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.input-field {
+  width: 90%;
+  padding: 12px 12px 12px 40px; /* Left padding for icon */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Special styling for password visibility toggle */
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  cursor: pointer;
+}
+
+/* Primary action button */
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #5a67d8;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #4c51bf;
+}
+
+/* Link for switching between login/signup */
+.switch-auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.8); /* 👈 CHANGED THIS: Made text visible on dark background */
+}
+
+.switch-auth-link a {
+  color: white; /* 👈 CHANGED THIS: Made link visible on dark background */
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switch-auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* Demo Accounts section for Login Page */
+.demo-accounts {
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.demo-accounts h3 {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.demo-account-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+.demo-account-item span:first-child {
+  font-weight: 500;
+}
+.autocomplete-container { position: relative; }
+.suggestions-list {
+  position: absolute; top: 100%; left: 0; right: 0; background: white;
+  border: 1px solid #ddd; border-top: none; border-radius: 0 0 8px 8px;
+  list-style: none; margin: 0; padding: 0; z-index: 10;
+}
+.suggestions-list li { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #eee; }
+.suggestions-list li:hover { background-color: #f5f5f5; }
