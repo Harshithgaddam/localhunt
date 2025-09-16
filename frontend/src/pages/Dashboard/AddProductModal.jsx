@@ -6,33 +6,26 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
-  const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
+  const [imageFile, setImageFile] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !price || !stock) {
-      alert('Please fill in all required fields.');
-      return;
+    
+    // Use FormData to package the form data and the image file
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('stock', stock);
+    formData.append('category', category);
+    formData.append('isAvailable', isAvailable);
+    if (imageFile) {
+      formData.append('image', imageFile);
     }
     
-    // Pass the new product data back to the parent component
-    onAddProduct({
-      name,
-      description,
-      price: parseFloat(price),
-      images: [image || '/img/placeholder.jpg'], // Use a placeholder if no image is provided
-      isAvailable,
-      stock: parseInt(stock),
-    });
-
-    // Clear form and close modal
-    setName('');
-    setDescription('');
-    setPrice('');
-    setStock('');
-    setImage('');
-    setIsAvailable(true);
+    onAddProduct(formData);
     onClose();
   };
 
@@ -51,6 +44,10 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
             <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
           <div className="form-group">
+            <label htmlFor="category">Category</label>
+            <input id="category" type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="e.g., Fruits, Electronics" required />
+          </div>
+          <div className="form-group">
             <label htmlFor="description">Description</label>
             <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
           </div>
@@ -64,9 +61,15 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
               <input id="stock" type="number" value={stock} onChange={(e) => setStock(e.target.value)} required />
             </div>
           </div>
-           <div className="form-group">
-            <label htmlFor="image">Image URL (optional)</label>
-            <input id="image" type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="e.g., /img/new-product.jpg"/>
+          <div className="form-group">
+            <label htmlFor="image">Product Image</label>
+            <input 
+              id="image" 
+              type="file" 
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])} 
+              className="input-field"
+            />
           </div>
           <div className="form-group-checkbox">
             <input id="isAvailable" type="checkbox" checked={isAvailable} onChange={(e) => setIsAvailable(e.target.checked)} />

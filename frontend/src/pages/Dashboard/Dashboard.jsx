@@ -8,7 +8,7 @@ import { FiGrid, FiShoppingBag, FiMessageSquare, FiSettings, FiLogOut, FiMapPin 
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');

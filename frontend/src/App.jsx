@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/Auth/LoginPage.jsx';
 import SignUpPage from './pages/Auth/SignUpPage.jsx';
 import Dashboard from './pages/Dashboard/Dashboard.jsx'; 
-
+import VendorPublicPage from './pages/Dashboard/VendorPublicPage.jsx';
 function App() {
   return (
     <div>
@@ -16,6 +16,7 @@ function App() {
         {/* Route for the sign-up page */}
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/vendors/:id" element={<VendorPublicPage />} />
       </Routes>
     </div>
   );
