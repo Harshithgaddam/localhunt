@@ -1,3 +1,4 @@
+@import "leaflet/dist/leaflet.css";
 /* Main Layout */
 .app-layout { display: flex; min-height: 100vh; width: 100vw; font-family: 'Poppins', sans-serif; background-color: #f8f9fa; }
 .sidebar { width: 250px; background-color: white; padding: 1.5rem; border-right: 1px solid #e9ecef; flex-shrink: 0; }
@@ -161,4 +162,117 @@
 
 .product-actions .delete-btn:hover {
   background-color: #f8d7da;
+}
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 9999; /* ensure it appears on top */
+}
+
+/* Modal Card */
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* soft shadow */
+  border: 1px solid #e9ecef;
+}
+.form-group label{
+   color: #212529;
+}
+
+
+.modal {
+  background: #fff; padding: 1.5rem; border-radius: 10px; width: 400px;
+}
+
+.stars {
+  display: flex; gap: 8px; margin: 10px 0;
+}
+
+.star {
+  cursor: pointer; color: #ccc;
+}
+
+.star.selected {
+  color: gold;
+}
+
+textarea {
+  width: 100%; padding: 0.5rem; margin-top: 10px;
+}
+
+.modal-actions {
+  margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;
+}
+
+.submit-btn { background: green; color: white; padding: 5px 12px; border: none; border-radius: 5px; }
+.cancel-btn { background: gray; color: white; padding: 5px 12px; border: none; border-radius: 5px; }
+.rate-btn { margin-top: 8px; background: #007bff; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+.rate-btn:hover { background: #0056b3; }
+/* ADD THIS TO THE END OF YOUR Dashboard.css FILE */
+
+/* --- FIX FOR FAINT VENDOR DASHBOARD TEXT --- */
+
+.content-header h1,
+.content-header p {
+  color: #343a40; /* Dark text color */
+  opacity: 1;      /* Force full opacity */
+}
+
+.content-header p {
+  color: #6c757d; /* Lighter gray for subtitle */
+}
+
+.products-header h2 {
+  color: #343a40;
+  opacity: 1;
+}
+
+.product-card-header h3,
+.product-card-content p {
+  color: #343a40;
+  opacity: 1;
+}
+/* In Dashboard.css */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem; /* Increased from 1.5rem */
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 2.5rem;
+}
+/* In Dashboard.css */
+.top-bar-welcome {
+  position: absolute; /* Take it out of the normal flow */
+  left: 50%;
+  transform: translateX(-50%); /* Perfectly center it */
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #343a40;
+}
+
+
+.user-info {
+  margin-left: auto; /* Push this div all the way to the right */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+/* In Dashboard.css */
+.top-bar {
+  display: flex;
+  align-items: center; /* Vertically align all items */
+  padding: 1.5rem 2rem;
+  background-color: white;
+  border-bottom: 1px solid #e9ecef;
+  position: relative; /* Needed for absolute centering */
 }

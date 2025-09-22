@@ -4,7 +4,7 @@ const vendorSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
-  },
+  },  
   businessName: { type: String, required: true },
   description: { type: String },
   address: { type: String, required: true },
@@ -14,17 +14,17 @@ const vendorSchema = new mongoose.Schema({
       enum: ['Point'],
     },
     coordinates: {
-      type: [Number], 
-    },
+      type: [Number],
+    }, 
   },
   contactInfo: {
     phone: String,
     email: String,
   },
- businessHours: { type: String },
+ businessHours: { type: String }, 
   rating: {
     type: Number,
-    default: 0,
+    default: 0, 
   },
   numReviews: {
     type: Number,

@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Review = require('../models/Review');
 const Vendor = require('../models/Vendor');
+const Product = require('../models/Product'); 
 
 // Middleware to get user from token
 const protect = (req, res, next) => {
@@ -23,29 +24,33 @@ const protect = (req, res, next) => {
 
 // @route   POST /api/reviews/:vendorId
 // @desc    Create a new review for a vendor
-router.post('/:vendorId', protect, async (req, res) => {
-  const { rating, comment } = req.body;
+// @route   POST /api/reviews/:productId
+// @desc    Create a new review for a product
+router.post('/:productId', protect, async (req, res) => {
+  const {rating, comment } = req.body;
   
   try {
-    const vendor = await Vendor.findById(req.params.vendorId);
-    if (!vendor) {
-      return res.status(404).json({ message: 'Vendor not found' });
+    // Make sure product exists
+    const product = await Product.findById(req.params.productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
     }
-
+ 
     // Create and save the new review
     const review = new Review({
+      userId: req.user.id,
+      vendorId:product.vendorId,
+      productId: req.params.productId,
       rating: Number(rating),
       comment,
-      vendorId: req.params.vendorId,
-      userId: req.user.id,
     });
     await review.save();
 
-    // After saving, recalculate the vendor's average rating
-    const reviews = await Review.find({ vendorId: req.params.vendorId });
-    vendor.numReviews = reviews.length;
-    vendor.rating = reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
-    await vendor.save();
+    // After saving, recalculate the product's average rating
+    const reviews = await Review.find({ productId: req.params.productId });
+    product.numReviews = reviews.length;
+    product.rating = reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
+    await product.save();
 
     res.status(201).json({ message: 'Review added successfully' });
 
@@ -54,5 +59,6 @@ router.post('/:vendorId', protect, async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
+
 
 module.exports = router;

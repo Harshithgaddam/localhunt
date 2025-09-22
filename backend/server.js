@@ -37,7 +37,7 @@ const authRoutes = require('./routes/auth');
 const vendorRoutes = require('./routes/vendors');
 const productRoutes = require('./routes/products');
 const reviewRoutes = require('./routes/reviews');
-
+  
 const app = express();
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));

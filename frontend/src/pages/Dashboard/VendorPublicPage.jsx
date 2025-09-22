@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
-import { FiMapPin, FiArrowLeft, FiShoppingBag, FiMessageSquare, FiSettings, FiGrid, FiLogOut } from 'react-icons/fi';
+import { FiMapPin, FiArrowLeft, FiShoppingBag, FiMessageSquare, FiSettings, FiGrid, FiLogOut,FiStar } from 'react-icons/fi';
 
 const VendorPublicPage = () => {
   const { id } = useParams(); // Gets vendor ID from the URL (e.g., /vendors/12345)
   const [vendor, setVendor] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
 
   useEffect(() => {
     const fetchVendorData = async () => {
@@ -23,6 +28,42 @@ const VendorPublicPage = () => {
     };
     fetchVendorData();
   }, [id]);
+
+    const handleOpenModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setRating(0);
+    setReview("");
+  };
+
+  const handleSubmitReview = async () => {
+    if (!rating) {
+      alert("Please select a star rating!");
+      return;
+    }
+    const token = localStorage.getItem("token"); // ✅ get token
+
+  if (!token) {
+    alert("You must be logged in to submit a review!");
+    return;
+  }
+    try {
+      await axios.post(`/api/reviews/${selectedProduct._id}`, {
+        rating,
+        comment:review,
+      },{headers: { Authorization: `Bearer ${token}` }});
+      alert("Review submitted successfully!");
+      handleCloseModal();
+    } catch (err) {
+      console.error("Error submitting review:", err);
+      alert("Error submitting review.");
+    }
+  };
+
 
   if (loading) return <div className="info-text">Loading Shop...</div>;
   if (!vendor) return <div className="info-text">Vendor not found.</div>;
@@ -71,7 +112,11 @@ const VendorPublicPage = () => {
                     <div className="product-card-footer">
                       <span className="product-price">${product.price.toFixed(2)}</span>
                       <span className="product-stock">Stock: {product.stock}</span>
+                      
                     </div>
+                    <button className="rate-btn"onClick={() => handleOpenModal(product)}>
+                         ⭐ Rate Product
+                      </button>
                   </div>
                 </div>
               ))
@@ -80,6 +125,44 @@ const VendorPublicPage = () => {
             )}
           </div>
         </div>
+        {showModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Rate {selectedProduct?.name}</h2>
+
+      {/* Stars */}
+      <div className="stars">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <FiStar
+            key={star}
+            size={28}
+            onClick={() => setRating(star)}
+            className={star <= rating ? "star selected" : "star"}
+          />
+        ))}
+      </div>
+
+      {/* Review Input */}
+      <textarea
+        placeholder="Write your review..."
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
+        rows="4"
+      />
+
+      {/* Buttons */}
+      <div className="modal-actions">
+        <button onClick={handleSubmitReview} className="submit-btn">
+          Submit
+        </button>
+        <button onClick={handleCloseModal} className="cancel-btn">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       </main>
     </div>
   );

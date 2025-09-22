@@ -203,6 +203,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FiMapPin, FiSearch, FiStar, FiPhone } from 'react-icons/fi';
+import { fetchOSMShops } from "../../../../backend/utils/osm";
 
 const CustomerDashboard = ({ user }) => {
   const [locationQuery, setLocationQuery] = useState('');
@@ -219,7 +220,15 @@ const CustomerDashboard = ({ user }) => {
     setSearched(true);
     try {
       const response = await axios.get(`/api/vendors?location=${locationQuery}`);
-      setVendors(response.data);
+      const dbVendors = response.data;
+      const geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
+      params: { q: locationQuery, format: "json", limit: 1 },  });
+      let osmShops = [];
+    if (geoRes.data.length > 0) {
+      const { lat, lon } = geoRes.data[0];
+      osmShops = await fetchOSMShops(lat, lon, 500); // 500m radius
+    }
+    setVendors([...dbVendors, ...osmShops]);
     } catch (error) {
       alert("Could not fetch vendors. Please try a different location.");
     }
@@ -251,26 +260,23 @@ const CustomerDashboard = ({ user }) => {
       {!loading && searched && (
         <div className="vendor-grid">
           {vendors.length > 0 ? (
-            vendors.map((vendor) => (
-              <div key={vendor._id} className="vendor-card simple-vendor-card">
-                <div className="vendor-card-header">
-                  <h3>{vendor.businessName}</h3>
-                  <span className="vendor-card-rating">
-                    <FiStar /> {vendor.rating}
-                  </span>
-                </div>
-                <p className="vendor-owner-name">Operated by: {vendor.owner?.name || 'N/A'}</p>
-                <div className="vendor-card-info">
-                  <FiPhone /> <span>{vendor.contactInfo?.phone || 'No phone number provided'}</span>
-                </div>
-                <Link to={`/vendors/${vendor._id}`} className="view-shop-btn" style={{marginTop: '1rem'}}>
-                  View Products
-                </Link>
-              </div>
-            ))
-          ) : (
-            <p className="info-text">No vendors found for this location.</p>
-          )}
+  vendors.map((vendor) => (
+    <div key={vendor._id || vendor.id} className="vendor-card simple-vendor-card">
+      <div className="vendor-card-header">
+        <h3>{vendor.businessName}</h3>
+        {vendor.source === "OSM" && <span className="vendor-tag">[From Map]</span>}
+      </div>
+      <p>{vendor.address}</p>
+      {vendor.contactInfo?.phone && (
+        <div className="vendor-card-info">
+          <FiPhone /> {vendor.contactInfo.phone}
+        </div>
+      )}
+    </div>
+  ))
+) : (
+  <p className="info-text">No vendors found for this location.</p>
+)}
         </div>
       )}
     </div>

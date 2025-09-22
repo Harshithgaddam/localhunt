@@ -35,7 +35,7 @@ const AddProductModal = ({ isOpen, onClose, onAddProduct }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Add New Product</h2>
+          <h2 style="color:black">Add New Product</h2>
           <button onClick={onClose} className="close-btn"><FiX size={24} /></button>
         </div>
         <form onSubmit={handleSubmit} className="modal-form">

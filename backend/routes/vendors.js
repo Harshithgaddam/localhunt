@@ -131,8 +131,39 @@ const express = require('express');
 const router = express.Router();
 const Vendor = require('../models/Vendor');
 const Product = require('../models/Product');
+const getCoordinates = require("../utils/geocode");
+router.get("/", async (req, res) => {
+  const { location } = req.query;
+
+  if (!location) {
+    return res.status(400).json({ message: "Location query parameter is required" });
+  }
+
+  try {
+    const coords = await getCoordinates(location);
+    if (!coords) {
+      return res.status(400).json({ message: "Invalid location. Could not fetch coordinates." });
+    }
+    console.log("Searching vendors near:", coords);
+    const vendors = await Vendor.find({
+      location: {
+        $near: {
+          $geometry: { type: "Point", coordinates: [coords.lon, coords.lat] },
+          $maxDistance: 5000 
+        }
+      }
+    }).populate("owner", "name");
+console.log("Vendors found:", vendors);
+    res.json(vendors);
+  } catch (error) {
+    console.error("Vendor search error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 router.get('/', async (req, res) => {
-  const { q, location } = req.query; 
+  const { q, location } = req.query;
+   console.log("HIT / with query:", req.query);
   try { 
     let query = {};
     if (location) {
@@ -142,13 +173,10 @@ router.get('/', async (req, res) => {
       query.businessName = { $regex: q, $options: 'i' };
     }
     const vendors = await Vendor.find(query).populate('owner', 'name');
-    
-    // Add a mock rating to each vendor for display purposes
-    const vendorsWithRating = vendors.map(v => ({
+        const vendorsWithRating = vendors.map(v => ({
       ...v.toObject(),
       rating: (Math.random() * (5 - 3.5) + 3.5).toFixed(1) // Random rating between 3.5 and 5.0
     }));
-
     res.json(vendorsWithRating);
   } catch (error) {
     console.error('Vendor search error:', error);
@@ -156,12 +184,13 @@ router.get('/', async (req, res) => {
   }
 });
 router.get('/:id', async (req, res) => {
+    console.log("HIT /:id with param:", req.params.id);
   try {
     const vendor = await Vendor.findById(req.params.id);
+    console.log("in /:id")
     if (!vendor) {
       return res.status(404).json({ message: 'Vendor not found' });
     }
-
     const products = await Product.find({ vendorId: req.params.id });
     res.json({ vendor, products });
 
@@ -170,4 +199,30 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
+router.post("/register", async (req, res) => {
+  try {
+    const { businessName, address, owner, contactInfo } = req.body;
+    const coords = await getCoordinates(address);
+    if (!coords) {
+      return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
+    }
+    const vendor = new Vendor({
+      businessName,
+      address,
+      owner,
+      contactInfo,
+      location: {
+        type: "Point",
+        coordinates: [coords.lon, coords.lat] 
+      }
+    });
+
+    await vendor.save();
+    res.status(201).json(vendor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

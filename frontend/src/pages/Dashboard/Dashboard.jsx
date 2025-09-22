@@ -30,7 +30,7 @@ const Dashboard = () => {
   
 
   if (!user) {
-    return <div>Loading...</div>; // Or a loading spinner
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -53,7 +53,9 @@ const Dashboard = () => {
       <main className="main-content">
         <header className="top-bar">
           <div className="user-info">
+          <div className="top-bar-welcome">
             <span>Welcome, {user.name}</span>
+            </div>
             <div className="user-avatar">{user?.name?.charAt(0)||'?'}</div>
             <button onClick={handleLogout} className="logout-btn" title="Logout">
               <FiLogOut size={20}/>

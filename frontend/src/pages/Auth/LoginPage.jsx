@@ -78,7 +78,7 @@ const LoginPage = () => {
           </div>
           <button type="submit" className="auth-button">Sign In</button>
         </form>
-        <div className="demo-accounts">
+        {/* <div className="demo-accounts">
           <h3>Demo Accounts:</h3>
           <div className='demo-account-item'>
               <span>User</span>
@@ -92,7 +92,7 @@ const LoginPage = () => {
               <span>Admin</span>
               <span>admin@localhunt.com</span>
           </div>
-        </div>
+        </div> */}
       </div>
       <p className="switch-auth-link">
         Don't have an account? <Link to="/signup">Sign Up</Link>
