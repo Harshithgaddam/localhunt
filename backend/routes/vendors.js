@@ -180,6 +180,38 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/nearby', async (req, res) => {
+  try {
+    const { lat, lon } = req.query;
+
+    // Check if latitude and longitude are provided
+    if (!lat || !lon) {
+      return res.status(400).json({ message: 'Latitude and longitude are required.' });
+    }
+
+    const latitude = parseFloat(lat);
+    const longitude = parseFloat(lon);
+    
+    // Find vendors within a 10 kilometer (10000 meters) radius
+    const vendors = await Vendor.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [longitude, latitude] // [longitude, latitude]
+          },
+          $maxDistance: 10000 // Distance in meters (10km)
+        }
+      }
+    });
+
+    res.json(vendors);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error while fetching nearby vendors.' });
+  }
+});
 // router.get('/', async (req, res) => {
 //   const { q, location } = req.query;
 //    console.log("HIT / with query:", req.query);
