@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require('../models/User');
 const Vendor = require('../models/Vendor');
 const jwt = require('jsonwebtoken');
+const getCoordinates = require("../utils/geocode");
+
 
 const createToken = (user) => {
   return jwt.sign(
@@ -20,7 +22,10 @@ router.post('/register', async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: 'User with this email already exists' });
     }
-
+    const coords = await getCoordinates(address);
+    if (!coords) {
+      return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
+    }
     const user = await User.create({ name, email, password, accountType });
 
     if (user && accountType === 'vendor') {
@@ -29,9 +34,15 @@ router.post('/register', async (req, res) => {
         owner: user._id,
         businessName,
         address,
+        location: {
+        type: "Point",
+        coordinates: [coords.lon, coords.lat] 
+      },
         contactInfo: { phone: phone }, // Nest the phone number
         businessHours: businessHours,
+        // category,
       });
+
     }
 
     res.status(201).json({ token: createToken(user) });

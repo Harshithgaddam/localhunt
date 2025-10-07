@@ -132,6 +132,27 @@ const router = express.Router();
 const Vendor = require('../models/Vendor');
 const Product = require('../models/Product');
 const getCoordinates = require("../utils/geocode");
+const { fetchOSMShops } = require('../utils/osm'); // We are using your OSM utility function
+
+// This handles GET requests to /api/vendors
+// router.get('/', async (req, res) => {
+//   const { lat, lon } = req.query;
+
+//   if (!lat || !lon) {
+//     return res.status(400).json({ msg: 'Latitude and longitude are required' });
+//   }
+
+//   try {
+//     // Call the function that gets data from OpenStreetMap
+//     const shops = await fetchOSMShops(lat, lon);
+//     res.json(shops);
+//   } catch (error) {
+//     console.error('Error fetching from Overpass API:', error);
+//     res.status(500).send('Server error while fetching vendors');
+//   }
+// });
+
+// module.exports = router;
 router.get("/", async (req, res) => {
   const { location } = req.query;
 
@@ -144,7 +165,6 @@ router.get("/", async (req, res) => {
     if (!coords) {
       return res.status(400).json({ message: "Invalid location. Could not fetch coordinates." });
     }
-    console.log("Searching vendors near:", coords);
     const vendors = await Vendor.find({
       location: {
         $near: {
@@ -153,7 +173,6 @@ router.get("/", async (req, res) => {
         }
       }
     }).populate("owner", "name");
-console.log("Vendors found:", vendors);
     res.json(vendors);
   } catch (error) {
     console.error("Vendor search error:", error);
@@ -161,28 +180,28 @@ console.log("Vendors found:", vendors);
   }
 });
 
-router.get('/', async (req, res) => {
-  const { q, location } = req.query;
-   console.log("HIT / with query:", req.query);
-  try { 
-    let query = {};
-    if (location) {
-      query.address = { $regex: location, $options: 'i' };
-    }
-    if (q) {
-      query.businessName = { $regex: q, $options: 'i' };
-    }
-    const vendors = await Vendor.find(query).populate('owner', 'name');
-        const vendorsWithRating = vendors.map(v => ({
-      ...v.toObject(),
-      rating: (Math.random() * (5 - 3.5) + 3.5).toFixed(1) // Random rating between 3.5 and 5.0
-    }));
-    res.json(vendorsWithRating);
-  } catch (error) {
-    console.error('Vendor search error:', error);
-    res.status(500).json({ message: 'Server Error' });
-  }
-});
+// router.get('/', async (req, res) => {
+//   const { q, location } = req.query;
+//    console.log("HIT / with query:", req.query);
+//   try { 
+//     let query = {};
+//     if (location) {
+//       query.address = { $regex: location, $options: 'i' };
+//     }
+//     if (q) {
+//       query.businessName = { $regex: q, $options: 'i' };
+//     }
+//     const vendors = await Vendor.find(query).populate('owner', 'name');
+//         const vendorsWithRating = vendors.map(v => ({
+//       ...v.toObject(),
+//       rating: (Math.random() * (5 - 3.5) + 3.5).toFixed(1) // Random rating between 3.5 and 5.0
+//     }));
+//     res.json(vendorsWithRating);
+//   } catch (error) {
+//     console.error('Vendor search error:', error);
+//     res.status(500).json({ message: 'Server Error' });
+//   }
+// });
 router.get('/:id', async (req, res) => {
     console.log("HIT /:id with param:", req.params.id);
   try {
@@ -201,8 +220,8 @@ router.get('/:id', async (req, res) => {
 });
 router.post("/register", async (req, res) => {
   try {
-    const { businessName, address, owner, contactInfo } = req.body;
-    const coords = await getCoordinates(address);
+    const { businessName, address,location, owner, contactInfo } = req.body;
+    const coords = await getCoordinates(location);
     if (!coords) {
       return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
     }

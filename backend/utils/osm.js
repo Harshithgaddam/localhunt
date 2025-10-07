@@ -2,7 +2,6 @@
 import axios from "axios";
 
 export async function fetchOSMShops(lat, lon, radius = 500) {
-  // Overpass API query to get shops around given coordinates
   const query = `
     [out:json];
     (
@@ -18,11 +17,16 @@ export async function fetchOSMShops(lat, lon, radius = 500) {
     headers: { "Content-Type": "text/plain" },
   });
 
-  // Convert OSM format → simple vendor-like format
   return response.data.elements.map((el) => ({
     id: `osm-${el.id}`,
     businessName: el.tags?.name || "Unnamed Shop",
-    address: el.tags?.["addr:street"] || "No address",
+    address: el.tags?.["addr:street"] || el.tags?.["addr:full"] || "No address",
+    phone: el.tags?.["phone"] || el.tags?.["contact:phone"] || null,
+    website: el.tags?.["website"] || el.tags?.["contact:website"] || null,
+    openingHours: el.tags?.["opening_hours"] || null,
+    category: el.tags?.["shop"] || "Unknown",
+    brand: el.tags?.["brand"] || null,
+    email: el.tags?.["email"] || el.tags?.["contact:email"] || null,
     location: {
       lat: el.lat || el.center?.lat,
       lon: el.lon || el.center?.lon,

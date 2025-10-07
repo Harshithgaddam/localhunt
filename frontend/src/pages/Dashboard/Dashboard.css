@@ -23,10 +23,23 @@
 .simple-vendor-card { display: flex; flex-direction: column; padding: 1.5rem; }
 .simple-vendor-card h3 { color: #343a40; font-weight: 600; font-size: 1.2rem; }
 .vendor-owner-name { color: #6c757d; font-size: 0.9rem; margin-bottom: 1rem; }
-.vendor-card-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #495057; margin-top: auto; padding-top: 1rem; border-top: 1px solid #f1f3f5; width: 100%; }
+.vendor-card-info { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #000000; margin-top: auto; padding-top: 1rem; border-top: 1px solid #f1f3f5; width: 100%; }
 .vendor-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
 .vendor-card-rating { display: flex; align-items: center; gap: 0.25rem; font-weight: 500; }
 .vendor-card-rating svg { color: #facc15; fill: #facc15; }
+/* Fix for faint text inside vendor cards */
+.vendor-card p {
+  color: #343a40;   /* dark gray */
+  opacity: 1;       /* full visibility */
+  font-size: 0.95rem;
+  margin: 4px 0;
+}
+
+.vendor-card strong {
+  color: #212529;   /* even darker for labels like Address:, Category: */
+  font-weight: 600;
+}
+
 
 /* Buttons */
 .view-shop-btn, a.view-shop-btn { padding: 0.75rem; background-color: #212529; color: white !important; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; text-align: center; }
@@ -275,4 +288,10 @@ textarea {
   background-color: white;
   border-bottom: 1px solid #e9ecef;
   position: relative; /* Needed for absolute centering */
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensures the header spans the full width of the modal */
 }

@@ -202,8 +202,21 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Auth.css';
-import { FiUser, FiMail, FiLock, FiUsers, FiMapPin, FiBriefcase, FiPhone, FiClock } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiUsers, FiMapPin, FiBriefcase, FiPhone, FiClock,FiTag } from 'react-icons/fi';
 
+// const categories = [
+//   'Electronics',
+//   'Vegetables',
+//   'Kirana Store',
+//   'Bakery',
+//   'Beauty & Cosmetics',
+//   'Mall',
+//   'Supermarket',
+//   'Book Store',
+//   'Clothing',
+//   'Restaurant',
+//   'Other'
+// ];
 const SignUpPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -211,16 +224,17 @@ const SignUpPage = () => {
   const [accountType, setAccountType] = useState('customer');
   const [businessName, setBusinessName] = useState('');
   const [address, setAddress] = useState('');
-  
+  const [location,setLocation]=useState('');
   // 1. Add new state for phone and business hours
   const [phone, setPhone] = useState('');
   const [businessHours, setBusinessHours] = useState('');
-
+// const [businessCategory, setBusinessCategory] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       // 3. Send the new data to the backend
       await axios.post('/api/auth/register', { 
         name, email, password, accountType,
@@ -228,6 +242,7 @@ const SignUpPage = () => {
         address: accountType === 'vendor' ? address : undefined,
         phone: accountType === 'vendor' ? phone : undefined,
         businessHours: accountType === 'vendor' ? businessHours : undefined,
+        //category: accountType === 'vendor'?businessCategory:undefined,
       });
       alert('Registration successful! Please log in.');
       navigate('/login');
@@ -251,7 +266,17 @@ const SignUpPage = () => {
             <>
               <div className="input-group"><FiBriefcase className="input-icon" /><input type="text" placeholder="Business Name" value={businessName} onChange={e => setBusinessName(e.target.value)} required className="input-field"/></div>
               <div className="input-group"><FiMapPin className="input-icon" /><input type="text" placeholder="Business Address" value={address} onChange={e => setAddress(e.target.value)} required className="input-field"/></div>
-              
+              <div className="input-group"><FiMapPin className="input-icon" /><input type="text" placeholder="Area Name" value={location} onChange={e => setLocation(e.target.value)} required className="input-field"/></div>
+
+               {/*  <div className="input-group">
+                <FiTag className="input-icon" />
+                <select value={businessCategory} onChange={e => setBusinessCategory(e.target.value)} required className="input-field">
+                  <option value="" disabled>Select a Business Category...</option>
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>*/}
               {/* 2. Add new input fields to the form */}
               <div className="input-group">
                 <FiPhone className="input-icon" />

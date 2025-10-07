@@ -12,9 +12,11 @@ const vendorSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Point'],
+      required:true,
     },
     coordinates: {
       type: [Number],
+      required:true
     }, 
   },
   contactInfo: {
@@ -30,6 +32,10 @@ const vendorSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  // category:{
+  //   type:String,
+  // }
+
 }, 
 { timestamps: true });
 vendorSchema.index({ location: '2dsphere' });
