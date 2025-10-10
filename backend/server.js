@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const vendorRoutes = require('./routes/vendors');
 const placesRoutes = require('./routes/places');
 const productRoutes = require('./routes/products');
+const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/vendors', vendorRoutes);
 app.use('/api/places', placesRoutes);
 app.use('/api/products', productRoutes); 
+app.use('/api/admin', adminRoutes);
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 
