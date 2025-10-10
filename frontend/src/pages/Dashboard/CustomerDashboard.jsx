@@ -217,6 +217,8 @@ const CustomerDashboard = ({ user }) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('all');
+
   useEffect(() => {
         // Ask for user's permission to get their location
         navigator.geolocation.getCurrentPosition(
@@ -232,7 +234,6 @@ const CustomerDashboard = ({ user }) => {
           let normalizedOsmShops = [];
 
           osmShops = await fetchOSMShops(latitude, longitude, 500); // 500m radius
-          console.log("before normalising osm shops");
           console.log(osmShops);
           // normalizedOsmShops = osmShops.map(shop => ({
           //   _id: `osm-${shop.id}`, // Create a unique ID to prevent key conflicts
@@ -245,7 +246,6 @@ const CustomerDashboard = ({ user }) => {
           //   },
           //   source: 'OSM' // Add a flag to identify the source
           // }));
-                    console.log("after normalising osm shops");
                     //console.log(normalizedOsmShops)
 
                     setVendors([...dbVendors, ...osmShops]);
@@ -262,6 +262,14 @@ const CustomerDashboard = ({ user }) => {
             }
         );
     }, []);
+
+    const categories = ['all', 'supermarket', 'convenience', 'bakery', 'restaurant', 'electronics', 'hardware','pet','motorcycle','florist'];
+  const filteredVendors = vendors.filter(vendor => {
+    // If 'all' is selected, the vendor always passes the category filter
+    const matchesCategory = selectedCategory === 'all' || vendor.category === selectedCategory;
+    return matchesCategory;
+  });
+
   
   const openMapModal = (vendor) => {
     // First, get the user's most current location
@@ -299,7 +307,6 @@ const CustomerDashboard = ({ user }) => {
       const geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
         params: { q: locationQuery, format: "json", limit: 1 },  });
         let osmShops = [];
-        let normalizedOsmShops = [];
         if (geoRes.data.length > 0) {
           const { lat, lon } = geoRes.data[0];
           osmShops = await fetchOSMShops(lat, lon, 500); // 500m radius
@@ -338,6 +345,18 @@ const CustomerDashboard = ({ user }) => {
       required
       />
       </div>
+      <div className="filter-bar">
+            <select 
+              value={selectedCategory} 
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)} {/* Capitalize first letter */}
+                </option>
+              ))}
+            </select>
+          </div>
       <button type="submit" className="view-shop-btn" style={{ width: 'auto', backgroundColor: '#4f46e5' }}>Find Vendors</button>
       </form>
       </header>
@@ -346,8 +365,8 @@ const CustomerDashboard = ({ user }) => {
       
       {!loading && searched && (
         <div className="vendor-grid">
-        {vendors.length > 0 ? (
-          vendors.map((vendor) => (
+        {filteredVendors.length > 0 ? (
+          filteredVendors.map((vendor) => (
             <div key={vendor._id || vendor.id} className="vendor-card simple-vendor-card" onClick={() => openMapModal(vendor)} style={{ cursor: 'pointer' }} >
             <div className="vendor-card-header">
             <h3>{vendor.businessName}</h3>

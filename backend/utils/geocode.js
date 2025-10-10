@@ -23,6 +23,9 @@ const axios = require('axios');
 
 const getCoordinates = async (address) => {
   // 1. Add a check to handle empty or invalid addresses immediately
+  console.log(!address);
+  console.log(typeof address !== 'string' );
+  console.log(address.trim() === '');
   if (!address || typeof address !== 'string' || address.trim() === '') {
     console.error("Geocoding failed: No address provided.");
     return null; // Stop and return null if the address is bad
@@ -38,14 +41,15 @@ const getCoordinates = async (address) => {
       },
       // Adding a User-Agent is good practice for OSM's API
       headers: {
-        'User-Agent': 'LocalHuntApp/1.0 (your-email@example.com)'
+        'User-Agent': 'LocalHuntApp/1.0 (1okkadu@gmail.com)'
       }
     });
-
     if (response.data && response.data.length > 0) {
+      
       const { lat, lon } = response.data[0];
       return { lat: parseFloat(lat), lon: parseFloat(lon) };
     } else {
+            console.log("in else block");
       return null; // No results found for the address
     }
   } catch (error) {

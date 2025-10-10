@@ -85,7 +85,6 @@ export const fetchOSMShops = async (lat, lon, radius = 1000) => {
     
     // ✅ Returning a CLEAN, NORMALIZED array, just like your commented code did
     // This filters out any results that are missing coordinates
-    console.log(response.data.elements);
     return response.data.elements
       .filter(el => (el.lat && el.lon) || (el.center?.lat && el.center?.lon))
       .map((el) => ({
@@ -93,6 +92,7 @@ export const fetchOSMShops = async (lat, lon, radius = 1000) => {
         businessName: el.tags?.name || "Unnamed Shop",
         address: el.tags?.["addr:street"] || el.tags?.["addr:full"] || "Address not available",
         // This creates the location object in the correct format for your app
+        category: el.tags?.shop || "Unknown",
         location: {
           type: 'Point',
           // Use 'el.center' as a fallback for complex shapes like buildings (ways/relations)

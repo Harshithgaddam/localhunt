@@ -200,7 +200,7 @@ router.get('/nearby', async (req, res) => {
             type: 'Point',
             coordinates: [longitude, latitude] // [longitude, latitude]
           },
-          $maxDistance: 10000 // Distance in meters (10km)
+          $maxDistance: 1000 // Distance in meters (1km)
         }
       }
     });
