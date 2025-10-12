@@ -44,6 +44,8 @@ const getCoordinates = async (address) => {
         'User-Agent': 'LocalHuntApp/1.0 (1okkadu@gmail.com)'
       }
     });
+    console.log(response.data);
+    console.log(response.data && response.data.length > 0);
     if (response.data && response.data.length > 0) {
       
       const { lat, lon } = response.data[0];

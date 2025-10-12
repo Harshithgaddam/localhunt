@@ -155,11 +155,11 @@ const { fetchOSMShops } = require('../utils/osm'); // We are using your OSM util
 // module.exports = router;
 router.get("/", async (req, res) => {
   const { location } = req.query;
-
+console.log(location);
   if (!location) {
     return res.status(400).json({ message: "Location query parameter is required" });
   }
-
+console.log("After if");
   try {
     const coords = await getCoordinates(location);
     if (!coords) {

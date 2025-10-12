@@ -304,6 +304,7 @@ const CustomerDashboard = ({ user }) => {
     try {
       const response = await axios.get(`/api/vendors?location=${locationQuery}`);
       const dbVendors = response.data;
+      console.log(dbVendors);
       const geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
         params: { q: locationQuery, format: "json", limit: 1 },  });
         let osmShops = [];
@@ -322,6 +323,7 @@ const CustomerDashboard = ({ user }) => {
           //   source: 'OSM' // Add a flag to identify the source
           // }));
         }
+        console.log(osmShops);
         setVendors([...dbVendors, ...osmShops]);
       } catch (error) {
         alert("Could not fetch vendors. Please try a different location.");
