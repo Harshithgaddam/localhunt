@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../backend/models/User');
 const Vendor = require('../backend/models/Vendor');
 const jwt = require('jsonwebtoken');
-const getCoordinates = require("../backend/utils/geocode");
+const getCoordinates = require("./geocode");
 
 
 const createToken = (user) => {

@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Vendor = require('../backend/models/Vendor');
 const Product = require('../backend/models/Product');
-const getCoordinates = require("../backend/utils/geocode");
-const { fetchOSMShops } = require('../backend/utils/osm'); // We are using your OSM utility function
+const getCoordinates = require("./geocode");
+const { fetchOSMShops } = require('./osm'); 
 
 router.get("/", async (req, res) => {
   const { location } = req.query;

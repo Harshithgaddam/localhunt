@@ -7,7 +7,7 @@ const Product = require('../backend/models/Product');
 const Vendor = require('../backend/models/Vendor');
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
+  destination: (req, file, cb) => cb(null, 'backend/uploads/'),
   filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
