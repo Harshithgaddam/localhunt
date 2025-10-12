@@ -1,8 +1,8 @@
 // api/auth/login.js
 
-import User from '../../../backend/models/User';
+import User from '../backend/models/User';
 import jwt from 'jsonwebtoken';
-import dbConnect from '../../../backend/utils/dbConnect'; // Helper to connect to the DB
+import dbConnect from '../backend/utils/dbConnect'; // Helper to connect to the DB
 
 // Helper function to create a token
 const createToken = (user) => {
