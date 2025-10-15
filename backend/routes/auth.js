@@ -22,15 +22,16 @@ router.post('/register', async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: 'User with this email already exists' });
     }
-    const coords = await getCoordinates(address);
-    console.log(coords);
-    if (!coords) {
-      return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
-    }
+   
     const user = await User.create({ name, email, password, accountType });
 
     if (user && accountType === 'vendor') {
       // 2. Pass the new data when creating the Vendor document
+       const coords = await getCoordinates(address);
+    console.log(coords);
+    if (!coords) {
+      return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
+    }
       await Vendor.create({
         owner: user._id,
         businessName,

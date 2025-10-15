@@ -43,11 +43,14 @@ router.get('/', protect, async (req, res) => {
 });
 
 router.post('/', protect, upload.single('image'), async (req, res) => {
+  console.log("entered product post method");
   try {
+    console.log(req.user.id);
     const vendor = await Vendor.findOne({ owner: req.user.id });
     if (!vendor) {
       return res.status(404).json({ message: 'Vendor profile not found' });
     }
+       console.log("found vendor from db");
 
     const { name, description, price, category, stock, isAvailable } = req.body;
     const imagePath = req.file ? `/${req.file.path.replace(/\\/g, '/')}` : '';

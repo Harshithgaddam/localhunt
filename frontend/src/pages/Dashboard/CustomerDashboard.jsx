@@ -206,6 +206,7 @@ import { FiMapPin, FiSearch, FiStar, FiPhone } from 'react-icons/fi';
 import { fetchOSMShops } from "../../../../backend/utils/osm";
 //import RouteMap from './RouteMap';
 const RouteMap = React.lazy(() => import('./RouteMap'));
+import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 
 const CustomerDashboard = ({ user }) => {
@@ -264,12 +265,26 @@ const CustomerDashboard = ({ user }) => {
     }, []);
 
     const categories = ['all', 'supermarket', 'convenience', 'bakery', 'restaurant', 'electronics', 'hardware','pet','motorcycle','florist'];
-  const filteredVendors = vendors.filter(vendor => {
+  //filter vendors
+    const filteredVendors = vendors.filter(vendor => {
     // If 'all' is selected, the vendor always passes the category filter
     const matchesCategory = selectedCategory === 'all' || vendor.category === selectedCategory;
     return matchesCategory;
   });
+// 📊 Dashboard stats
+  const totalVendors = vendors.length;
+  const categoriesFound = [...new Set(vendors.map(v => v.category || 'Uncategorized'))];
 
+  const chartData = categoriesFound.map(cat => ({
+    name: cat,
+    value: vendors.filter(v => v.category === cat).length || 1,
+  }));
+
+  const COLORS = [
+    '#4f46e5', '#10b981', '#f59e0b', '#3b82f6', '#ef4444',
+    '#ec4899', '#14b8a6', '#8b5cf6', '#f97316', '#22c55e',
+    '#06b6d4', '#a855f7', '#64748b', '#84cc16', '#f43f5e'
+  ];
   
   const openMapModal = (vendor) => {
     // First, get the user's most current location
@@ -364,6 +379,63 @@ const CustomerDashboard = ({ user }) => {
       </header>
       
       {loading && <p className="info-text">Searching for vendors...</p>}
+       {error && <p className="error-text">{error}</p>}
+
+      {/* 📊 Summary Section */}
+      {vendors.length > 0 && (
+        <section className="summary-section">
+          <div className="summary-card">
+            <h4>Total Vendors</h4>
+            <p>{totalVendors}</p>
+          </div>
+          <div className="summary-card">
+            <h4>Categories Found</h4>
+            <p>{categoriesFound.length}</p>
+          </div>
+          <div className="summary-card">
+            <h4>Messages</h4>
+            <p>8</p>
+          </div>
+
+          <div className="chart-wrapper">
+            <div className="chart-card">
+              <h4>Vendors by Category (Pie)</h4>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    label
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="chart-card">
+              <h4>Vendors by Category (Bar)</h4>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} angle={-45} textAnchor="end" interval={0} />
+                  <YAxis allowDecimals={false} />
+                  <Tooltip />
+                  <Bar dataKey="value" fill="#4f46e5" radius={[6, 6, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </section>
+      )}
       
       {!loading && searched && (
         <div className="vendor-grid">
