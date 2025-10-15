@@ -1,0 +1,68 @@
+.settings-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+.settings-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+.settings-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  color: #1e293b;
+}
+
+.settings-card p {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.settings-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.settings-form input {
+  width: 100%;
+  padding: 0.65rem;
+  margin-top: 0.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.settings-form button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+.settings-form button:hover {
+  background-color: #4338ca;
+}
+
+.status-message {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+}

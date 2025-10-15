@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link ,} from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import CustomerDashboard from './CustomerDashboard';
 import VendorDashboard from './VendorDashboard';
@@ -45,9 +45,9 @@ const Dashboard = () => {
     </div>
     <nav className="sidebar-nav">
     <Link to="/dashboard" className="active"><FiGrid /> Dashboard</Link>
-    <Link to="/my-shop"><FiShoppingBag /> My Shop</Link>
-    <Link to="/messages"><FiMessageSquare /> Messages</Link>
-    <Link to="/settings"><FiSettings /> Settings</Link>
+     <Link to="/dashboard/myshop"><FiShoppingBag /> My Shop</Link>
+  <Link to="/dashboard/messages"><FiMessageSquare /> Messages</Link>
+  <Link to="/dashboard/settings"><FiSettings /> Settings</Link>
     </nav>
     </aside>
     
@@ -72,6 +72,7 @@ const Dashboard = () => {
       ) : (user.accountType === 'admin' ? (<AdminDashboard user={user}/>):(
       <VendorDashboard user={user} />
       ))} 
+     
       </div>
       </main>
       </div>

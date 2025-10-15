@@ -3,20 +3,20 @@ import LoginPage from './pages/Auth/LoginPage.jsx';
 import SignUpPage from './pages/Auth/SignUpPage.jsx';
 import Dashboard from './pages/Dashboard/Dashboard.jsx'; 
 import VendorPublicPage from './pages/Dashboard/VendorPublicPage.jsx';
+// import DashboardIndex from './pages/Dashboard/DashboardIndex'; 
+// import MyShop from './pages/Dashboard/MyShop';
+// import Settings from './pages/Dashboard/Settings';
+// import Messages from './pages/Dashboard/Messages';
 function App() {
   return (
     <div>
       <Routes>
-        {/* Route for the login page (e.g., at the root path '/') */}
         <Route path="/" element={<LoginPage />} />
-        
-        {/* You can also be more explicit for the login path */}
         <Route path="/login" element={<LoginPage />} />
-
-        {/* Route for the sign-up page */}
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/vendors/:id" element={<VendorPublicPage />} />
+       
       </Routes>
     </div>
   );
