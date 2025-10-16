@@ -1,208 +1,7 @@
-// // // import React, { useState, useEffect } from 'react';
-// // // import { FiMapPin, FiSearch, FiStar, FiPhone, FiFilter, FiBookmark } from 'react-icons/fi';
-
-// // // const CustomerDashboard = ({ user }) => {
-  // // //   const [vendors, setVendors] = useState([]);
-// // //   const [searchQuery, setSearchQuery] = useState('');
-// // //   const [selectedCategory, setSelectedCategory] = useState('all');
-
-// // //   useEffect(() => {
-  // // //     // Mock vendor data. In a real app, you would fetch this from your backend API.
-// // //     const mockVendors = [
-// // //       { id: '1', businessName: 'Fresh Fruits Corner', description: 'Fresh organic fruits and vegetables', category: 'Grocery', location: { address: '123 Main St, New York, NY' }, contact: { phone: '+1234567890' }, images: ['/img/vendor1.png'], rating: 4.5, reviewCount: 128, isVerified: true, isOpen: false },
-// // //       { id: '2', businessName: 'Tech Repair Hub', description: 'Professional electronics repair services', category: 'Electronics', location: { address: '456 Tech Ave, New York, NY' }, contact: { phone: '+1234567891' }, images: ['/img/vendor2.png'], rating: 4.8, reviewCount: 89, isVerified: true, isOpen: true },
-// // //       { id: '3', businessName: 'Cozy Coffee Corner', description: 'Artisan coffee and fresh pastries', category: 'Food & Beverage', location: { address: '789 Coffee St, New York, NY' }, contact: { phone: '+1234567892' }, images: ['/img/vendor3.png'], rating: 4.3, reviewCount: 203, isVerified: true, isOpen: true },
-// // //     ];
-// // //     setVendors(mockVendors);
-// // //   }, []);
-
-// // //   const categories = ['all', 'Grocery', 'Electronics', 'Food & Beverage'];
-
-// // //   const filteredVendors = vendors.filter(vendor => {
-  // // //     const matchesSearch = vendor.businessName.toLowerCase().includes(searchQuery.toLowerCase());
-// // //     const matchesCategory = selectedCategory === 'all' || vendor.category === selectedCategory;
-// // //     return matchesSearch && matchesCategory;
-// // //   });
-
-// // //   return (
-// // //     <div>
-// // //       <header className="dashboard-header">
-// // //         <div className="customer-header-top">
-// // //             <div>
-// // //                 <h1>Welcome back, {user?.name}!</h1>
-// // //                 <p>Discover amazing local vendors in your area</p>
-// // //             </div>
-// // //             <button className="map-view-btn"><FiMapPin size={16}/> Map View</button>
-// // //         </div>
-// // //         <div className="search-filter-container">
-// // //           <div className="search-bar">
-// // //             <FiSearch />
-// // //             <input type="text" placeholder="Search for vendors, products, or services..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-// // //           </div>
-// // //            <div className="filter-bar">
-// // //              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-// // //                {categories.map(cat => <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>)}
-// // //              </select>
-// // //            </div>
-// // //            <button className="map-view-btn"><FiFilter size={16}/></button>
-// // //         </div>
-// // //       </header>
-
-// // //       <div className="vendor-grid">
-// // //         {filteredVendors.map((vendor) => (
-  // // //           <div key={vendor.id} className="vendor-card">
-// // //             <div className="vendor-card-image-container">
-// // //                 <img src={vendor.images[0]} alt={vendor.businessName} className="vendor-card-image"/>
-// // //                 {vendor.isVerified && <span className="badge verified">Verified</span>}
-// // //                 {vendor.isOpen ? (
-// // //                     <span className="badge open">Open</span>
-// // //                 ) : (
-// // //                     <span className="badge closed">Closed</span>
-// // //                 )}
-// // //             </div>
-// // //             <div className="vendor-card-content">
-// // //               <div className="vendor-card-header">
-// // //                 <h3>{vendor.businessName}</h3>
-// // //                 <span className="vendor-card-rating">
-// // //                   <FiStar style={{ fill: '#facc15', color: '#facc15' }}/> 
-// // //                   {vendor.rating} ({vendor.reviewCount})
-// // //                 </span>
-// // //               </div>
-// // //               <p>{vendor.description}</p>
-// // //               <div className="vendor-card-info">
-// // //                 <FiMapPin /> <span>{vendor.location.address}</span>
-// // //               </div>
-// // //               <div className="vendor-card-info">
-// // //                 <FiPhone /> <span>{vendor.contact.phone}</span>
-// // //               </div>
-// // //               <div className="vendor-card-actions">
-// // //                 <button className="view-shop-btn">View Shop</button>
-// // //                 <button className="bookmark-btn"><FiBookmark /></button>
-// // //               </div>
-// // //             </div>
-// // //           </div>
-// // //         ))}
-// // //       </div>
-// // //     </div>
-// // //   );
-// // // };
-
-// // // export default CustomerDashboard;
-// // import React, { useState } from 'react';
-// // import axios from 'axios';
-// // import { Link } from 'react-router-dom';
-// // import { FiMapPin, FiSearch, FiStar, FiPhone } from 'react-icons/fi';
-// // import RateVendorModal from './RateVendorModal'; 
-// // const CustomerDashboard = ({ user }) => {
-  // //   const [locationQuery, setLocationQuery] = useState('');
-// //   const [vendors, setVendors] = useState([]);
-// //   const [loading, setLoading] = useState(false);
-// //   const [searched, setSearched] = useState(false);
-// // const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);
-// //   const [selectedVendor, setSelectedVendor] = useState(null);
-
-// //   const handleLocationSearch = async (e) => {
-  // //     e.preventDefault();
-// //     if (!locationQuery) return;
-// //     setLoading(true);
-// //     setVendors([]);
-// //     setSearched(true);
-// //     try {
-// //       const response = await axios.get(`/api/vendors?location=${locationQuery}`);
-// //       setVendors(response.data);
-// //     } catch (error) {
-// //       alert("Could not fetch vendors. Please try a different location.");
-// //     }
-// //     setLoading(false);
-// //   };
-// //   const openRatingModal = (vendor) => {
-  // //     setSelectedVendor(vendor);
-// //     setIsRatingModalOpen(true);
-// //   };
-
-// //   const handleRateVendor = async (reviewData) => {
-  // //     if (!selectedVendor) return;
-// //     try {
-// //       const token = localStorage.getItem('token');
-// //       await axios.post(`/api/reviews/${selectedVendor._id}`, reviewData, {
-// //         headers: { Authorization: `Bearer ${token}` }
-// //       });
-// //       alert("Thank you for your review!");
-// //       // Optionally, refresh the vendor list to show the new average rating
-// //       handleLocationSearch({ preventDefault: () => {} }); // Re-run the search
-// //     } catch (error) {
-// //       alert("Failed to submit review. You may have already reviewed this vendor.");
-// //     }
-// //   };
-
-// //   return (
-// //     <div>
-// //       <header className="dashboard-header">
-// //         <h1>Welcome back, {user?.name}!</h1>
-// //         <p>Enter a location to find vendors registered on Local Hunt.</p>
-// //         <form onSubmit={handleLocationSearch} className="search-filter-container">
-// //           <div className="search-bar">
-// //             <FiMapPin />
-// //             <input
-// //               type="text"
-// //               placeholder="Enter your city or address..."
-// //               value={locationQuery}
-// //               onChange={(e) => setLocationQuery(e.target.value)}
-// //               required
-// //             />
-// //           </div>
-// //           <button type="submit" className="view-shop-btn" style={{ width: 'auto' }}>Find Vendors</button>
-// //         </form>
-// //       </header>
-
-// //       {loading && <p className="info-text">Searching for vendors...</p>}
-
-// //       {!loading && searched && (
-// //         <div className="vendor-grid">
-// //           {vendors.length > 0 ? (
-// //             vendors.map((vendor) => (
-  // //               // ✅ FIX: The vendor card JSX is now much simpler
-
-// //               <div key={vendor._id} className="vendor-card simple-vendor-card">
-// //                 <div className="vendor-card-header">
-// //                   <h3>{vendor.businessName}</h3>
-// //                   <span className="vendor-card-rating">
-// //                     <FiStar style={{ fill: '#facc15', color: '#facc15' }}/>  {vendor.rating.toFixed(1)} ({vendor.numReviews})
-// //                   </span>
-// //                 </div>
-// //                 <p className="vendor-owner-name">Operated by: {vendor.owner?.name || 'N/A'}</p>
-// //                 <div className="vendor-card-info">
-// //                   <FiPhone /> <span>{vendor.contactInfo?.phone || 'No phone number provided'}</span>
-// //                 </div>
-// //                 <Link to={`/vendors/${vendor._id}`} className="view-shop-btn" style={{marginTop: '1rem'}}>View Products</Link>
-// //             <button className="rate-vendor-btn" onClick={() => openRatingModal(vendor)}>Rate Vendor</button>
-// //                 <Link to={`/vendors/${vendor._id}`} className="view-shop-btn" style={{marginTop: '1rem'}}>
-// //                   View Products
-// //                 </Link>
-// //               </div>
-// //             ))
-// //           ) : (
-// //             <p className="info-text">No vendors found for this location.</p>
-// //           )}
-// //         </div>
-// //       )}
-// //       {selectedVendor && (
-// //          <RateVendorModal 
-// //             isOpen={isRatingModalOpen}
-// //             onClose={() => setIsRatingModalOpen(false)}
-// //             onSubmit={handleRateVendor}
-// //             vendorName={selectedVendor.businessName}
-// //          />
-// //       )}
-// //     </div>
-// //   );
-// // };
-
-// // export default CustomerDashboard;
 import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FiMapPin, FiSearch, FiStar, FiPhone } from 'react-icons/fi';
+import { FiMapPin, FiSearch, FiStar, FiPhone,FiShoppingBag,FiMap} from 'react-icons/fi';
 import { fetchOSMShops } from "../../../../backend/utils/osm";
 //import RouteMap from './RouteMap';
 const RouteMap = React.lazy(() => import('./RouteMap'));
@@ -219,6 +18,10 @@ const CustomerDashboard = ({ user }) => {
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('all');
+    const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  const [selectedVendorProducts, setSelectedVendorProducts] = useState([]);
+  const [selectedVendorName, setSelectedVendorName] = useState('');
+  const [productsLoading, setProductsLoading] = useState(false);
 
   useEffect(() => {
         // Ask for user's permission to get their location
@@ -308,6 +111,30 @@ const CustomerDashboard = ({ user }) => {
     setSelectedVendor(null);
     setUserLocation(null);
   };
+  const handleViewProducts = async (vendor) => {
+    // We don't need to show a map for OSM vendors without products
+    console.log(vendor.source);
+    if (vendor.source === 'OSM') {
+    setSelectedVendorProducts([]); // Ensure the product list is empty
+    setProductsLoading(false);
+    alert("please visit the store to view products");// Make sure loading is false
+    return;
+    }
+    console.log("in handleViewProducts");
+    setSelectedVendorName(vendor.businessName);
+    setIsProductModalOpen(true);
+    setProductsLoading(true);
+    try {
+      const response = await axios.get(`/api/products/vendor/${vendor._id}`);
+      setSelectedVendorProducts(response.data);
+    } catch (error) {
+      console.error("Failed to fetch products for vendor:", error);
+      setSelectedVendorProducts([]); // Ensure it's an empty array on error
+    } finally {
+      setProductsLoading(false);
+      console.log(selectedVendorProducts);
+    }
+  };
   
   const handleLocationSearch = async (e) => {
     e.preventDefault();
@@ -326,17 +153,6 @@ const CustomerDashboard = ({ user }) => {
         if (geoRes.data.length > 0) {
           const { lat, lon } = geoRes.data[0];
           osmShops = await fetchOSMShops(lat, lon, 500); // 500m radius
-          // normalizedOsmShops = osmShops.map(shop => ({
-          //   _id: `osm-${shop.id}`, // Create a unique ID to prevent key conflicts
-          //   businessName: shop.tags.name || 'Unnamed shopp',
-          //   address: shop.tags['addr:street'] || 'Address not available',
-          //   // Create the location object in the correct format
-          //   location: {
-          //     type: 'Point',
-          //     coordinates: [parseFloat(shop.lon), parseFloat(shop.lat)] // [longitude, latitude]
-          //   },
-          //   source: 'OSM' // Add a flag to identify the source
-          // }));
         }
         console.log(osmShops);
         setVendors([...dbVendors, ...osmShops]);
@@ -345,6 +161,11 @@ const CustomerDashboard = ({ user }) => {
       }
       setLoading(false);
     };
+    const closeProductModal = () => {
+    setIsProductModalOpen(false);
+    setSelectedVendorProducts([]);
+    setSelectedVendorName('');
+  };
     
     return (
       <div>
@@ -441,7 +262,7 @@ const CustomerDashboard = ({ user }) => {
         <div className="vendor-grid">
         {filteredVendors.length > 0 ? (
           filteredVendors.map((vendor) => (
-            <div key={vendor._id || vendor.id} className="vendor-card simple-vendor-card" onClick={() => openMapModal(vendor)} style={{ cursor: 'pointer' }} >
+            <div key={vendor._id || vendor.id} className="vendor-card simple-vendor-card"  style={{ cursor: 'pointer' }} >
             <div className="vendor-card-header">
             <h3>{vendor.businessName}</h3>
             {vendor.source === "OSM" && <span className="vendor-tag">[From Map]</span>}
@@ -476,7 +297,22 @@ const CustomerDashboard = ({ user }) => {
             {vendor.openingHours && (
               <p><strong>Hours:</strong> {vendor.openingHours}</p>
             )}
-            </div>
+            <div className="vendor-card-actions">
+                <button 
+                  className="vendor-action-btn" 
+                  onClick={() => handleViewProducts(vendor)}
+                  // disabled={vendor.source === 'OSM'} // Disable button for OSM vendors
+                >
+                  <FiShoppingBag /> View Products
+                </button>
+                <button 
+                  className="vendor-action-btn" 
+                  onClick={() => openMapModal(vendor)}
+                >
+                  <FiMap /> View Map
+                </button>
+              </div>
+           </div>
           ))
         ) : (
           <p className="info-text">No vendors found for this location.</p>
@@ -495,6 +331,38 @@ const CustomerDashboard = ({ user }) => {
         </div>
         <button onClick={closeMapModal} className="map-modal-close">&times;</button>
         
+        </div>
+      )}
+      {isProductModalOpen && (
+        <div className="modal-overlay" onClick={closeProductModal}>
+          <div className="modal-content product-modal" onClick={(e) => e.stopPropagation()}>
+            <button onClick={closeProductModal} className="modal-close-btn">&times;</button>
+            <h2>Products from {selectedVendorName}</h2>
+            <div className="product-list">
+              {productsLoading ? (
+                <p>Loading products...</p>
+              ) : selectedVendorProducts.length > 0 ? (
+                selectedVendorProducts.map(product => (
+                  <div key={product._id} className="product-item-card">
+                    <img 
+                      src={product.images[0] ? `${import.meta.env.VITE_API_URL}${product.images[0]}` : 'https://placehold.co/300x200/e2e8f0/e2e8f0?text=Image'} 
+                      alt={product.name} 
+                      className="product-item-image"
+                    />
+                    <div className="product-item-details">
+                      <h4>{product.name}</h4>
+                      <p>{product.description}</p>
+                      <span className="product-item-price">${product.price.toFixed(2)}</span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="no-products-message">
+                  This vendor has not uploaded products yet. You can physically visit the store to see products.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       )}
       

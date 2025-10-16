@@ -212,6 +212,7 @@ const VendorDashboard = ({ user }) => {
         Add Product
       </button>
     </div>
+    {/* {console.log(products)} */}
     <div className="products-grid">
       {products.map(product => (
         <div key={product._id} className="product-card">

@@ -298,3 +298,139 @@ textarea {
 .map-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .map-modal-content { background: white; padding: 20px; border-radius: 8px; width: 80%; height: 70%; position: relative; }
 .map-modal-close { position: absolute; top: 10px; right: 10px; background: white; border: none; font-size: 1.5rem; cursor: pointer;z-index: 1001; color: #333}
+.page-container h2 {
+  font-size: 2rem;
+  color: #111827; 
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb; 
+  padding-bottom: 0.5rem;
+}
+
+.page-container p {
+  font-size: 1rem;
+  color: #6b7280; 
+  line-height: 1.6;
+}
+/* In your main CSS file (e.g., Dashboard.css or App.css) */
+
+/* Styles for the new buttons on the vendor card */
+.vendor-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+.vendor-action-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid #4f46e5;
+  background-color: #f0f2ff;
+  color: #4f46e5;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.vendor-action-btn:hover {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.vendor-action-btn:disabled {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Styles for the new product modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.product-item-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.product-item-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background-color: #f3f4f6;
+}
+
+.product-item-details {
+  padding: 1rem;
+}
+
+.product-item-details h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.product-item-details p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 1rem 0;
+}
+
+.product-item-price {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.no-products-message {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+  grid-column: 1 / -1; /* Make it span all columns */
+}

@@ -28,6 +28,16 @@ const protect = (req, res, next) => {
     return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
+router.get('/vendor/:vendorId', async (req, res) => {
+  const { vendorId } = req.params; // In Express, it's req.params, not req.query
+
+  try {
+    const products = await Product.find({ vendorId: vendorId });
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
 router.get('/', protect, async (req, res) => {
   try {

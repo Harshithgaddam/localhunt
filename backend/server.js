@@ -17,6 +17,7 @@ app.use('/api/places', placesRoutes);
 app.use('/api/products', productRoutes); 
 app.use('/api/admin', adminRoutes);
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.get('*', (req, res) => {
