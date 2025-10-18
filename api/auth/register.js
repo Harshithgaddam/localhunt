@@ -1,10 +1,10 @@
 // api/auth/register.js
 
-import User from '../../../backend/models/User';
-import Vendor from '../../../backend/models/Vendor';
+import User from '../../backend/models/User';
+import Vendor from '../../backend/models/Vendor';
 import jwt from 'jsonwebtoken';
-import dbConnect from '../../../backend/utils/dbConnect';
-import { getCoordinates } from '../../../backend/utils/geocode'; // Assuming geocode is a utility
+import dbConnect from '../../backend/utils/dbConnect';
+import { getCoordinates } from '../../backend/utils/geocode'; // Assuming geocode is a utility
 
 // Helper function to create a token
 const createToken = (user) => {
