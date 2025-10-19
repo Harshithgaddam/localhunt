@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../api';
 
 const getCoordinates = async (address) => {
   // 1. Add a check to handle empty or invalid addresses immediately

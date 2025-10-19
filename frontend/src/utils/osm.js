@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../api';
 export const fetchOSMShops = async (lat, lon, radius = 1000) => {
   // ✅ Using a more complete query to find different types of map elements
   // ✅ Using 'out;' to get the full data including all tags (like name, address, etc.)
