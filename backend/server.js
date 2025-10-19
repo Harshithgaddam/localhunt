@@ -13,7 +13,7 @@ const corsOptions = {
   origin: 'https://localhunt-2.onrender.com'
 };
 
-
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
