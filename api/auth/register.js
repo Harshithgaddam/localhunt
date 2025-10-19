@@ -4,7 +4,8 @@ import User from '../../backend/models/User';
 import Vendor from '../../backend/models/Vendor';
 import jwt from 'jsonwebtoken';
 import dbConnect from '../../backend/utils/dbConnect';
-import { getCoordinates } from '../../backend/utils/geocode'; // Assuming geocode is a utility
+//import { getCoordinates } from '../../backend/utils/geocode'; // Assuming geocode is a utility
+import axios from 'axios';
 
 // Helper function to create a token
 const createToken = (user) => {
@@ -28,8 +29,22 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'User with this email already exists' });
       }
       
-      const coords = await getCoordinates(address);
-      if (!coords) {
+      // const coords = await getCoordinates(address);
+      // if (!coords) {
+      //   return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
+      // }
+      let coords;
+      try {
+        const geocodeUrl = `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'}/api/geocode?location=${encodeURIComponent(address)}`;
+        const geoResponse = await axios.get(geocodeUrl);
+        
+        if (geoResponse.data && geoResponse.data.length > 0) {
+          coords = { lat: geoResponse.data[0].lat, lon: geoResponse.data[0].lon };
+        } else {
+           throw new Error('Geocoding API did not return coordinates');
+        }
+      } catch (geocodeError) {
+        console.error('Geocoding Error during registration:', geocodeError);
         return res.status(400).json({ message: "Invalid address. Could not fetch coordinates." });
       }
 

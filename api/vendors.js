@@ -21,7 +21,7 @@ console.log("After if");
       location: {
         $near: {
           $geometry: { type: "Point", coordinates: [coords.lon, coords.lat] },
-          $maxDistance: 5000 
+          $maxDistance: 1000 
         }
       }
     }).populate("owner", "name");
