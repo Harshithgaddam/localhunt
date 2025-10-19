@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from './api';
+import api from '../api';
 import { FiUsers, FiShoppingBag, FiBarChart2, FiArrowLeft } from 'react-icons/fi';
 import './AdminDashboard.css';
 

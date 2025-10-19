@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import api from './api';
+import api from '../api';
 import './Dashboard.css';
 import { FiMapPin, FiArrowLeft, FiShoppingBag, FiMessageSquare, FiSettings, FiGrid, FiLogOut,FiStar } from 'react-icons/fi';
 
