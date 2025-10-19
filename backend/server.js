@@ -2,12 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path'); 
+const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const vendorRoutes = require('./routes/vendors');
 const placesRoutes = require('./routes/places');
 const productRoutes = require('./routes/products');
 const adminRoutes = require('./routes/adminRoutes');
 const app = express();
+const corsOptions = {
+  origin: 'https://localhunt-2.onrender.com'
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
