@@ -12,7 +12,7 @@ const app = express();
 const corsOptions = {
   origin: 'https://localhunt-2.onrender.com'
 };
-app.use(cors(corsOptions));
+
 
 app.use(express.json());
 
@@ -21,17 +21,20 @@ app.use('/api/vendors', vendorRoutes);
 app.use('/api/places', placesRoutes);
 app.use('/api/products', productRoutes); 
 app.use('/api/admin', adminRoutes);
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('frontend/dist')); // Or ../frontend/dist
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  });
+}
 
 
 mongoose
-  .connect('mongodb://127.0.0.1:27017/localhunt')
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 const PORT = process.env.PORT || 5000;
