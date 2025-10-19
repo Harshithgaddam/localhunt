@@ -1,8 +1,8 @@
 import React, { useState ,useEffect} from 'react';
-import axios from 'axios';
+import api from './api';
 import { Link } from 'react-router-dom';
 import { FiMapPin, FiSearch, FiStar, FiPhone,FiShoppingBag,FiMap} from 'react-icons/fi';
-import { fetchOSMShops } from "../../../../backend/utils/osm";
+import { fetchOSMShops } from "../utils/osm";
 //import RouteMap from './RouteMap';
 const RouteMap = React.lazy(() => import('./RouteMap'));
 import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
@@ -32,7 +32,7 @@ const CustomerDashboard = ({ user }) => {
                 setSearched(true); // Treat this as a search
                 try {
           // Use the coordinates to fetch vendors from your backend
-                    const response = await axios.get(`/api/vendors/nearby?lat=${latitude}&lon=${longitude}`);
+                    const response = await api.get(`/api/vendors/nearby?lat=${latitude}&lon=${longitude}`);
           const dbVendors = response.data;
           let osmShops = [];
           let normalizedOsmShops = [];
@@ -125,7 +125,7 @@ const CustomerDashboard = ({ user }) => {
     setIsProductModalOpen(true);
     setProductsLoading(true);
     try {
-      const response = await axios.get(`/api/products/vendor/${vendor._id}`);
+      const response = await api.get(`/api/products/vendor/${vendor._id}`);
       setSelectedVendorProducts(response.data);
     } catch (error) {
       console.error("Failed to fetch products for vendor:", error);
@@ -144,10 +144,10 @@ const CustomerDashboard = ({ user }) => {
     setVendors([]);
     setSearched(true);
     try {
-      const response = await axios.get(`/api/vendors?location=${locationQuery}`);
+      const response = await api.get(`/api/vendors?location=${locationQuery}`);
       const dbVendors = response.data;
       console.log(dbVendors);
-      const geoRes = await axios.get("https://nominatim.openstreetmap.org/search", {
+      const geoRes = await api.get("https://nominatim.openstreetmap.org/search", {
         params: { q: locationQuery, format: "json", limit: 1 },  });
         let osmShops = [];
         if (geoRes.data.length > 0) {

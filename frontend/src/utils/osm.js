@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import api from './api';
 export const fetchOSMShops = async (lat, lon, radius = 1000) => {
   // ✅ Using a more complete query to find different types of map elements
   // ✅ Using 'out;' to get the full data including all tags (like name, address, etc.)
@@ -14,7 +13,7 @@ export const fetchOSMShops = async (lat, lon, radius = 1000) => {
   `;
 
   try {
-    const response = await axios.post(
+    const response = await api.post(
       'https://overpass-api.de/api/interpreter',
       `data=${encodeURIComponent(query)}`,
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Import useNavigate and Link
-import axios from 'axios'; // Import axios
+import api from './api'; 
 import './Auth.css';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiMapPin } from 'react-icons/fi';
 
@@ -15,7 +15,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       // 1. Send a POST request to the backend login endpoint using a relative URL
-      const response = await axios.post('/api/auth/login', {
+      const response = await api.post('/api/auth/login', {
         email,
         password,
       });

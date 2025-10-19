@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from './api';
 import './Dashboard.css';
 import { FiMapPin, FiArrowLeft, FiShoppingBag, FiMessageSquare, FiSettings, FiGrid, FiLogOut,FiStar } from 'react-icons/fi';
 
@@ -18,7 +18,7 @@ const VendorPublicPage = () => {
   useEffect(() => {
     const fetchVendorData = async () => {
       try {
-        const response = await axios.get(`/api/vendors/${id}`);
+        const response = await api.get(`/api/vendors/${id}`);
         setVendor(response.data.vendor);
         setProducts(response.data.products);
       } catch (error) {
@@ -52,7 +52,7 @@ const VendorPublicPage = () => {
     return;
   }
     try {
-      await axios.post(`/api/reviews/${selectedProduct._id}`, {
+      await api.post(`/api/reviews/${selectedProduct._id}`, {
         rating,
         comment:review,
       },{headers: { Authorization: `Bearer ${token}` }});

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from './api';
 import "./Settings.css";
 
 const Settings = () => {
@@ -17,7 +17,7 @@ const Settings = () => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    axios.get("/api/auth/me", {
+    api.get("/api/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       }).then((res) => {
         setUser(res.data);
@@ -47,7 +47,7 @@ const Settings = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.put(
+      const res = await api.put(
         "/api/auth/update",
         {
           name: formData.name,

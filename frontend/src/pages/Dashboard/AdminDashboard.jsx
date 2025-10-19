@@ -1,62 +1,5 @@
-// import React, { useState, useEffect } from 'react';
-// import { FiUsers, FiShoppingBag, FiBarChart2 } from 'react-icons/fi';
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [totalUsers, setTotalUsers] = useState(0);
-//   const [totalVendors, setTotalVendors] = useState(0);
-
-//   // This useEffect simulates fetching data when the component loads.
-//   // In a real app, you would make an API call here.
-//   useEffect(() => {
-//     // Mock data for demonstration
-//     setTotalUsers(142);
-//     setTotalVendors(58);
-//   }, []);
-
-//   return (
-//     <div className="admin-dashboard">
-//       <header className="dashboard-header">
-//         <h1>Admin Dashboard</h1>
-//         <p>Overview of your platform's activity.</p>
-//       </header>
-
-//       <div className="stats-grid">
-//         <div className="stat-card">
-//           <div className="stat-card-icon icon-users">
-//             <FiUsers size={24} />
-//           </div>
-//           <div className="stat-card-info">
-//             <p className="stat-label">Total Users</p>
-//             <p className="stat-value">{totalUsers}</p>
-//           </div>
-//         </div>
-
-//         <div className="stat-card">
-//           <div className="stat-card-icon icon-vendors">
-//             <FiShoppingBag size={24} />
-//           </div>
-//           <div className="stat-card-info">
-//             <p className="stat-label">Total Vendors</p>
-//             <p className="stat-value">{totalVendors}</p>
-//           </div>
-//         </div>
-//       </div>
-      
-//       {/* You can add more sections like charts or tables here */}
-//       <div className="dashboard-section">
-//         <h2>Recent Activity</h2>
-//         <p className="placeholder-text">
-//           <FiBarChart2 /> Charts and recent activity logs will be displayed here.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from './api';
 import { FiUsers, FiShoppingBag, FiBarChart2, FiArrowLeft } from 'react-icons/fi';
 import './AdminDashboard.css';
 
@@ -74,7 +17,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get('/api/admin/stats', getAuthHeaders());
+        const response = await api.get('/api/admin/stats', getAuthHeaders());
         setStats(response.data);
       } catch (error) {
         console.error("Failed to fetch stats:", error);
@@ -85,7 +28,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('/api/admin/users', getAuthHeaders());
+      const response = await api.get('/api/admin/users', getAuthHeaders());
       setUsers(response.data);
       console.log(users);
       setView('users');
@@ -96,7 +39,7 @@ const AdminDashboard = () => {
 
   const fetchVendors = async () => {
     try {
-      const response = await axios.get('/api/admin/vendors', getAuthHeaders());
+      const response = await api.get('/api/admin/vendors', getAuthHeaders());
       setVendors(response.data);
       console.log(vendors);
       setView('vendors');
@@ -108,7 +51,7 @@ const AdminDashboard = () => {
   const handleBanUser = async (userId) => {
     if (window.confirm('Are you sure you want to change the ban status for this user?')) {
       try {
-        await axios.put(`/api/admin/users/${userId}/ban`, {}, getAuthHeaders());
+        await api.put(`/api/admin/users/${userId}/ban`, {}, getAuthHeaders());
         fetchUsers(); // Refresh the list
       } catch (error) {
         console.error("Failed to ban user:", error);
@@ -119,7 +62,7 @@ const AdminDashboard = () => {
   const handleBanVendor = async (vendorId) => {
     if (window.confirm('Are you sure you want to change the ban status for this vendor?')) {
       try {
-        await axios.put(`/api/admin/vendors/${vendorId}/ban`, {}, getAuthHeaders());
+        await api.put(`/api/admin/vendors/${vendorId}/ban`, {}, getAuthHeaders());
         fetchVendors(); // Refresh the list
       } catch (error) {
         console.error("Failed to ban vendor:", error);

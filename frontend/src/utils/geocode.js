@@ -1,4 +1,4 @@
-const axios = require('axios');
+import api from './api';
 
 const getCoordinates = async (address) => {
   // 1. Add a check to handle empty or invalid addresses immediately
@@ -11,7 +11,7 @@ const getCoordinates = async (address) => {
   }
 
   try {
-    const response = await axios.get("https://nominatim.openstreetmap.org/search", {
+    const response = await api.get("https://nominatim.openstreetmap.org/search", {
       // 2. Make sure the 'q' parameter is set to the address
       params: {
         q: address,
