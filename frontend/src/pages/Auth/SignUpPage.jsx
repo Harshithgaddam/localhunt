@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import api from '../api';
+import api from '../../api';
 import './Auth.css';
 import { FiUser, FiMail, FiLock, FiUsers, FiMapPin, FiBriefcase, FiPhone, FiClock,FiTag } from 'react-icons/fi';
 

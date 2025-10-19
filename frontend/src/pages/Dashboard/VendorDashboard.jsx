@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api';
+import api from '../../api';
 import AddProductModal from './AddProductModal';
 import { 
   FiDollarSign, FiBarChart2, FiPackage, FiMessageCircle, FiHome, 

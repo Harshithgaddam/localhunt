@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react';
-import api from '../api';
+import api from '../../api';
 import { Link } from 'react-router-dom';
 import { FiMapPin, FiSearch, FiStar, FiPhone,FiShoppingBag,FiMap} from 'react-icons/fi';
 import { fetchOSMShops } from "../utils/osm";
