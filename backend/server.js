@@ -77,11 +77,19 @@ app.use('/api/reviews', reviewRoutes);
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const frontendDistPath = path.resolve(__dirname, '..', 'frontend', 'dist');
-app.use(express.static(frontendDistPath));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendDistPath, 'index.html'));
-});
+// const frontendDistPath = path.resolve(__dirname, '..', 'frontend', 'dist');
+// app.use(express.static(frontendDistPath));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(frontendDistPath, 'index.html'));
+// });
+if (process.env.NODE_ENV === 'production') {
+  
+  app.use(express.static('frontend/dist')); // Or ../frontend/dist
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  });
+}
 
 // --- Database Connection & Server Start ---
 mongoose
