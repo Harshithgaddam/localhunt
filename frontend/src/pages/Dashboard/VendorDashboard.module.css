@@ -1,0 +1,235 @@
+/* Styles specific to VendorDashboard */
+
+.pageContainer {
+  padding: 2rem;
+}
+
+.contentHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.contentHeaderIcon {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  padding: 0.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentHeader h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #111827; /* Dark text */
+  margin: 0 0 0.25rem 0;
+}
+
+.contentHeader p {
+  font-size: 1rem;
+  color: #6b7280; /* Lighter gray text */
+  margin: 0;
+}
+
+.tabsNav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tabsNav button {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tabsNav button:hover {
+  color: #111827;
+}
+
+.tabsNav button.active {
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
+}
+
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.productsHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827; /* Dark text */
+}
+
+.addProductBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.addProductBtn:hover {
+  background-color: #4338ca;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.productCard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCardImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background-color: #f3f4f6;
+}
+
+.productCardContent {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.productCardHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827; /* Dark text */
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-weight: 500;
+  background-color: #e6f9f0;
+  color: #15803d;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+.productCardContent p {
+  font-size: 0.9rem;
+  color: #6b7280; /* Lighter gray text */
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.productCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.productStock {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.productActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto; /* Push actions to the bottom */
+}
+
+.productActions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  color: #343a40; /* Dark text for buttons */
+}
+
+.productActions button:hover {
+  background-color: #e9ecef;
+}
+
+.productActions .deleteBtn {
+  flex-grow: 0;
+  padding: 0.5rem;
+  color: #dc3545;
+  border-color: #f8d7da;
+  background-color: #f8d7da;
+}
+
+.productActions .deleteBtn:hover {
+  background-color: #f1aeae;
+  border-color: #f1aeae;
+}
+.dashboardSection {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem; /* Add some space */
+}
+
+.dashboardSection h2 {
+  margin: 0 0 1rem 0;
+  color: #111827; /* Dark text */
+}
+
+.placeholderText {
+  color: #6b7280; /* Lighter gray text */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 3rem 0;
+  border: 2px dashed #e5e7eb;
+  border-radius: 6px;
+}

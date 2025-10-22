@@ -1,0 +1,218 @@
+/* General container styles for the dashboard page */
+.pageContainer {
+  /* Add any overall padding or styles for the dashboard area if needed */
+  padding: 1rem; /* Example */
+}
+
+/* --- Vendor Card Text Fix --- */
+.vendorCard {
+  background-color: white; /* Ensure card has a background */
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.vendorCard h3 {
+  color: #343a40; /* Dark color for vendor name */
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.vendorCard p {
+  color: #495057; /* Medium-dark color for paragraph text */
+  font-size: 0.9rem;
+  margin: 0.25rem 0; /* Add some spacing */
+}
+
+.vendorCard strong {
+  color: #212529; /* Darkest color for labels like "Address:" */
+  font-weight: 600;
+}
+
+.vendorTag {
+  font-size: 0.8rem;
+  padding: 0.1rem 0.5rem;
+  background-color: #e0e7ff;
+  color: #4338ca;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.vendorCardInfo { /* Style for Address/Phone lines if needed */
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   color: #495057;
+   margin-top: 0.5rem;
+}
+
+
+/* --- Modal General Styles --- */
+.modalOverlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75); display: flex;
+  align-items: center; justify-content: center; z-index: 1000;
+}
+
+.modalContent {
+  background: white; padding: 2rem; border-radius: 12px;
+  width: 90%; max-width: 800px; max-height: 80vh;
+  overflow-y: auto; position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modalCloseBtn {
+  position: absolute; top: 1rem; right: 1rem; background: none;
+  border: none; font-size: 2rem; cursor: pointer; color: #9ca3af; line-height: 1;
+}
+.modalCloseBtn:hover {
+  color: #111827;
+}
+
+/* --- Product Modal Text Fix --- */
+.productModal h2 {
+  color: #111827; /* Dark color for modal title */
+  margin-top: 0;
+  font-size: 1.5rem; /* Adjust size as needed */
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.productItemDetails h4 {
+  color: #1f2937; /* Dark gray for product name */
+  font-size: 1.1rem; /* Adjust size as needed */
+  margin: 0 0 0.5rem 0;
+}
+
+.productItemDetails p {
+  color: #6b7280; /* Lighter gray for product description */
+   font-size: 0.9rem;
+   margin-bottom: 0.5rem;
+}
+
+.productItemPrice {
+  color: #111827; /* Dark color for price */
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.noProductsMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+/* --- Reviews List Modal Text Fix --- */
+.reviewsListModal h2 {
+  color: #111827; /* Dark color for modal title */
+  margin-top: 0;
+  font-size: 1.5rem; /* Adjust size as needed */
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.reviewerName {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.reviewComment {
+  font-style: italic;
+  color: #4b5563;
+  margin: 0.5rem 0;
+}
+
+.reviewDate {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: right;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.noReviewsMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+/* --- Add other relevant styles --- */
+/* You might want to copy styles for .product-list, .review-card, buttons etc. */
+/* from your main dashboard.css into this file as well, */
+/* or keep importing dashboard.css alongside this module. */
+
+.productItemFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.productItemRating {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.productItemActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.showReviewsBtn, .addReviewBtn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.showReviewsBtn {
+  background-color: transparent;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
+}
+.showReviewsBtn:hover {
+  background-color: #f0f2ff;
+}
+
+.addReviewBtn {
+  background-color: #e0e7ff;
+  color: #4338ca;
+  border: none;
+}
+.addReviewBtn:hover {
+  background-color: #c7d2fe;
+}
+
+.reviewCard {
+  background-color: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.reviewCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.reviewCardStars {
+  display: flex;
+  gap: 0.1rem;
+}
+

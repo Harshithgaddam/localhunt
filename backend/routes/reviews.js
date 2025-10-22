@@ -30,13 +30,11 @@ router.post('/:productId', protect, async (req, res) => {
   const {rating, comment } = req.body;
   
   try {
-    // Make sure product exists
     const product = await Product.findById(req.params.productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
  
-    // Create and save the new review
     const review = new Review({
       userId: req.user.id,
       vendorId:product.vendorId,
@@ -48,14 +46,32 @@ router.post('/:productId', protect, async (req, res) => {
 
     // After saving, recalculate the product's average rating
     const reviews = await Review.find({ productId: req.params.productId });
-    product.numReviews = reviews.length;
-    product.rating = reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
+    const numReviews = reviews.length;
+    const avgRating = numReviews > 0
+      ? reviews.reduce((acc, item) => item.rating + acc, 0) / numReviews
+      : 0;  
+        product.numReviews = numReviews;
+    product.rating = avgRating;
     await product.save();
 
     res.status(201).json({ message: 'Review added successfully' });
 
   } catch (error) {
     console.error("Error adding review:", error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+router.get('/:productId', async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    const reviews = await Review.find({ productId: productId })
+      .populate('userId', 'name') // This fetches the reviewer's name from the User collection
+      .sort({ createdAt: -1 }); // Show newest reviews first
+
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
     res.status(500).json({ message: 'Server Error' });
   }
 });

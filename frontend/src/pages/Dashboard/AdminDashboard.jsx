@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api';
 import { FiUsers, FiShoppingBag, FiBarChart2, FiArrowLeft } from 'react-icons/fi';
+import styles from './AdminDashboard.module.css';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -71,35 +72,35 @@ const AdminDashboard = () => {
   };
 
   const renderStatsView = () => (
-    <>
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-card-icon icon-users"><FiUsers size={24} /></div>
-          <div className="stat-card-info">
-            <p className="stat-label">Total Users</p>
-            <p className="stat-value">{stats.totalUsers}</p>
+   <>
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <div className={`${styles.statCardIcon} ${styles.iconUsers}`}><FiUsers size={24} /></div>
+          <div className={styles.statCardInfo}>
+            <p className={styles.statLabel}>Total Users</p>
+            <p className={styles.statValue}>{stats.totalUsers}</p>
           </div>
-          <button className="manage-btn" onClick={fetchUsers}>Manage Users</button>
+          <button className={styles.manageBtn} onClick={fetchUsers}>Manage Users</button>
         </div>
-        <div className="stat-card">
-          <div className="stat-card-icon icon-vendors"><FiShoppingBag size={24} /></div>
-          <div className="stat-card-info">
-            <p className="stat-label">Total Vendors</p>
-            <p className="stat-value">{stats.totalVendors}</p>
+        <div className={styles.statCard}>
+          <div className={`${styles.statCardIcon} ${styles.iconVendors}`}><FiShoppingBag size={24} /></div>
+          <div className={styles.statCardInfo}>
+            <p className={styles.statLabel}>Total Vendors</p>
+            <p className={styles.statValue}>{stats.totalVendors}</p>
           </div>
-          <button className="manage-btn" onClick={fetchVendors}>Manage Vendors</button>
+          <button className={styles.manageBtn} onClick={fetchVendors}>Manage Vendors</button>
         </div>
       </div>
-      <div className="dashboard-section">
+      <div className={styles.dashboardSection}>
         <h2>Recent Activity</h2>
-        <p className="placeholder-text"><FiBarChart2 /> Charts and logs will be here.</p>
+        <p className={styles.placeholderText}><FiBarChart2 /> Charts and logs will be here.</p>
       </div>
     </>
   );
 
   const renderUsersView = () => (
-    <div className="management-view">
-      <button className="back-btn" onClick={() => setView('stats')}><FiArrowLeft /> Back to Dashboard</button>
+     <div className={styles.managementView}>
+      <button className={styles.backBtn} onClick={() => setView('stats')}><FiArrowLeft /> Back to Dashboard</button>
       <h2>Manage Users</h2>
       <table>
         <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Action</th></tr></thead>
@@ -108,8 +109,8 @@ const AdminDashboard = () => {
             <tr key={user._id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td><span className={user.isBanned ? 'status-banned' : 'status-active'}>{user.isBanned ? 'Banned' : 'Active'}</span></td>
-              <td><button className="ban-btn" onClick={() => handleBanUser(user._id)}>{user.isBanned ? 'Unban' : 'Ban'}</button></td>
+              <td><span className={user.isBanned ? styles.statusBanned : styles.statusActive}>{user.isBanned ? 'Banned' : 'Active'}</span></td>
+              <td><button className={styles.banBtn} onClick={() => handleBanUser(user._id)}>{user.isBanned ? 'Unban' : 'Ban'}</button></td>
             </tr>
           ))}
         </tbody>
@@ -118,8 +119,8 @@ const AdminDashboard = () => {
   );
 
   const renderVendorsView = () => (
-    <div className="management-view">
-      <button className="back-btn" onClick={() => setView('stats')}><FiArrowLeft /> Back to Dashboard</button>
+    <div className={styles.managementView}>
+      <button className={styles.backBtn} onClick={() => setView('stats')}><FiArrowLeft /> Back to Dashboard</button>
       <h2>Manage Vendors</h2>
       <table>
         <thead><tr><th>Business Name</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead>
@@ -128,8 +129,8 @@ const AdminDashboard = () => {
             <tr key={vendor._id}>
               <td>{vendor.businessName}</td>
               <td>{vendor.owner?.name || 'N/A'}</td>
-              <td><span className={vendor.isBanned ? 'status-banned' : 'status-active'}>{vendor.isBanned ? 'Banned' : 'Active'}</span></td>
-              <td><button className="ban-btn" onClick={() => handleBanVendor(vendor._id)}>{vendor.isBanned ? 'Unban' : 'Ban'}</button></td>
+              <td><span className={vendor.isBanned ? styles.statusBanned : styles.statusActive}>{vendor.isBanned ? 'Banned' : 'Active'}</span></td>
+              <td><button className={styles.banBtn} onClick={() => handleBanVendor(vendor._id)}>{vendor.isBanned ? 'Unban' : 'Ban'}</button></td>
             </tr>
           ))}
         </tbody>
@@ -138,8 +139,8 @@ const AdminDashboard = () => {
   );
 
   return (
-    <div className="admin-dashboard">
-      <header className="dashboard-header">
+    <div className={styles.adminDashboard}>
+      <header className={styles.dashboardHeader}>
         <h1>Admin Dashboard</h1>
         <p>Overview of your platform's activity.</p>
       </header>

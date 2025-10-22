@@ -1,0 +1,173 @@
+/* Styles specific to AdminDashboard */
+
+.adminDashboard {
+  padding: 2rem;
+}
+
+.dashboardHeader { /* Renamed from global dashboard-header to avoid conflict */
+  margin-bottom: 2rem;
+}
+
+.dashboardHeader h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #111827; /* Dark text */
+  margin: 0 0 0.25rem 0;
+}
+
+.dashboardHeader p {
+  font-size: 1rem;
+  color: #6b7280; /* Lighter gray text */
+  margin: 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding-bottom: 5rem; /* Space for button */
+}
+
+.statCardIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.iconUsers { background-color: #3b82f6; } /* Blue */
+.iconVendors { background-color: #8b5cf6; } /* Purple */
+
+.statCardInfo .statLabel {
+  color: #6b7280; /* Lighter gray text */
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.statCardInfo .statValue {
+  color: #111827; /* Dark text */
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.manageBtn {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  width: calc(100% - 3rem);
+  padding: 0.75rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.manageBtn:hover { background-color: #4338ca; }
+
+.dashboardSection {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem; /* Add some space */
+}
+
+.dashboardSection h2 {
+  margin: 0 0 1rem 0;
+  color: #111827; /* Dark text */
+}
+
+.placeholderText {
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 3rem 0;
+  border: 2px dashed #e5e7eb;
+  border-radius: 6px;
+}
+
+.managementView {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+}
+
+.managementView h2 {
+  color: #111827; /* Dark text */
+  margin-top: 0;
+}
+
+.managementView table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.managementView th, .managementView td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151; /* Default dark gray text for table cells */
+}
+
+.managementView th {
+  color: #6b7280; /* Lighter gray for table headers */
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.statusBanned {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.statusActive {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.banBtn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ef4444;
+  background-color: #fee2e2;
+  color: #ef4444;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.banBtn:hover {
+  background-color: #fca5a5;
+}
